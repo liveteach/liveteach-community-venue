@@ -26,11 +26,19 @@ initAssetPacks(engine, pointerEventsSystem, {
 
 
 export function main() {
-  let entity = engine.addEntity()
-Transform.create(entity, {
+  let TeachingCommunityVenue = engine.addEntity()
+Transform.create(TeachingCommunityVenue, {
     position: Vector3.create(48,0.02,48),
     rotation: Quaternion.fromEulerDegrees(0,0,0),
     scale: Vector3.create(1,1,1)
 })
-GltfContainer.create(entity, {src:"models/TeachingCommunityVenue.glb"})
+GltfContainer.create(TeachingCommunityVenue, {src:"models/TeachingCommunityVenue.glb"})
+
+let TeachingCommunityWelcomeZoneInterior = engine.addEntity()
+Transform.create(TeachingCommunityWelcomeZoneInterior, {
+    position: Vector3.create(48,0.02,48),
+    rotation: Quaternion.fromEulerDegrees(0,0,0),
+    scale: Vector3.create(1,1,1)
+})
+GltfContainer.create(TeachingCommunityWelcomeZoneInterior, {src:"models/TeachingCommunityWelcomeZoneInterior.glb"})
 }
