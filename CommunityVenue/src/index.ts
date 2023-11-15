@@ -28,7 +28,7 @@ initAssetPacks(engine, pointerEventsSystem, {
 export function main() {
   let TeachingCommunityVenue = engine.addEntity()
 Transform.create(TeachingCommunityVenue, {
-    position: Vector3.create(48,0.02,48),
+    position: Vector3.create(10,0.02,10),
     rotation: Quaternion.fromEulerDegrees(0,0,0),
     scale: Vector3.create(1,1,1)
 })
@@ -36,7 +36,7 @@ GltfContainer.create(TeachingCommunityVenue, {src:"models/TeachingCommunityVenue
 
 let TeachingCommunityWelcomeZoneInterior = engine.addEntity()
 Transform.create(TeachingCommunityWelcomeZoneInterior, {
-    position: Vector3.create(48,0.02,48),
+    position: Vector3.create(10,0.02,10),
     rotation: Quaternion.fromEulerDegrees(0,0,0),
     scale: Vector3.create(1,1,1)
 })
@@ -44,9 +44,17 @@ GltfContainer.create(TeachingCommunityWelcomeZoneInterior, {src:"models/Teaching
 
 let TeachingCommunityInteriorLectureTheatre01 = engine.addEntity()
 Transform.create(TeachingCommunityInteriorLectureTheatre01, {
-    position: Vector3.create(48,0.02,48),
+    position: Vector3.create(10,0.02,10),
     rotation: Quaternion.fromEulerDegrees(0,0,0),
     scale: Vector3.create(1,1,1)
 })
 GltfContainer.create(TeachingCommunityInteriorLectureTheatre01, {src:"models/TeachingCommunityInteriorLectureTheatre01.glb"})
+
+let TeachingCommunityInteriorLectureTheatre02 = engine.addEntity()
+Transform.create(TeachingCommunityInteriorLectureTheatre02, {
+    position: Vector3.create(10,0.02,10),
+    rotation: Quaternion.fromEulerDegrees(0,0,0),
+    scale: Vector3.create(1,1,1)
+})
+GltfContainer.create(TeachingCommunityInteriorLectureTheatre02, {src:"models/TeachingCommunityInteriorLectureTheatre02.glb"})
 }
