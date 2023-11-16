@@ -65,4 +65,12 @@ Transform.create(TeachingCommunityInteriorTeachingRoom01, {
     scale: Vector3.create(1,1,1)
 })
 GltfContainer.create(TeachingCommunityInteriorTeachingRoom01, {src:"models/TeachingCommunityInteriorTeachingRoom01.glb"})
+
+let TeachingCommunityInteriorTeachingRoomLobby = engine.addEntity()
+Transform.create(TeachingCommunityInteriorTeachingRoomLobby, {
+    position: Vector3.create(10,0.02,10),
+    rotation: Quaternion.fromEulerDegrees(0,0,0),
+    scale: Vector3.create(1,1,1)
+})
+GltfContainer.create(TeachingCommunityInteriorTeachingRoomLobby, {src:"models/TeachingCommunityInteriorTeachingRoomLobby.glb"})
 }
