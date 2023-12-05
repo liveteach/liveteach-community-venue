@@ -1,7 +1,16 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "strict": true
+    "alwaysStrict": false,
+    "strict": false,
+    "strictNullChecks": false,
+    "strictBindCallApply": false,
+    "strictFunctionTypes": false,
+    "strictPropertyInitialization": false,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "jsx": "react"
   },
   "include": [
     "src/**/*.ts",
