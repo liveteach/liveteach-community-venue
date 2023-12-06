@@ -32,7 +32,7 @@ export class Podium {
     controllerScreen: ControllerScreen
     interactionScreen: InteractionScreen
 
-    constructor(_position:Vector3) {
+    constructor(_position:Vector3, _rotation:Vector3) {
         this.entity = engine.addEntity()
         this.powerButtonGraphic = engine.addEntity()
         this.prevNextButtonsGraphic = engine.addEntity()
@@ -46,7 +46,7 @@ export class Podium {
 
         Transform.create(this.entity, {
             position: _position,
-            rotation: Quaternion.fromEulerDegrees(0, -90, 0),
+            rotation: Quaternion.fromEulerDegrees(_rotation.x,_rotation.y,_rotation.z),
             scale: Vector3.create(1, 1, 1)
         })
 
