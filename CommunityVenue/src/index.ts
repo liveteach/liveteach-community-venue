@@ -9,6 +9,7 @@ import { ClassroomManager } from '@dclu/dclu-liveteach/src/classroom'
 import { PeerToPeerChannel } from "@dclu/dclu-liveteach/src/classroom/comms/peerToPeerChannel";
 import * as classroom1Config from "./classroomConfigs/classroom1Config.json"
 import * as classroom2Config from "./classroomConfigs/classroom2Config.json"
+import { DoorManager } from './doors/doorManager'
 
 export function main() {
 
@@ -19,7 +20,7 @@ export function main() {
     setupUi()
 
     new Building()
-
+    new DoorManager()
 
     const communicationChannel = new PeerToPeerChannel()
     ClassroomManager.Initialise(communicationChannel, true)
