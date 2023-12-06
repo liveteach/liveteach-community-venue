@@ -8,10 +8,10 @@ export class DoorManager {
 
     constructor(){
         //Load doors
-        this.doors.push(new Door(Vector3.create(2.345,0,8.93),Vector3.create(0,0,0)))
-        this.doors.push(new Door(Vector3.create(8.705,0,0.2),Vector3.create(0,90,0)))
-        this.doors.push(new Door(Vector3.create(38.66,0,1.345),Vector3.create(0,90,0)))
-        this.doors.push(new Door(Vector3.create(38.66,0,19.635),Vector3.create(0,90,0)))
+        this.doors.push(new Door(Vector3.create(2.345,0.02,8.93),Vector3.create(0,0,0)))
+        this.doors.push(new Door(Vector3.create(8.705,0.02,0.2),Vector3.create(0,90,0)))
+        this.doors.push(new Door(Vector3.create(38.66,0.02,1.345),Vector3.create(0,90,0)))
+        this.doors.push(new Door(Vector3.create(38.66,0.02,19.635),Vector3.create(0,90,0)))
 
         engine.addSystem(this.update.bind(this))
     }
