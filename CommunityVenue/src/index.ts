@@ -10,8 +10,10 @@ import { PeerToPeerChannel } from "@dclu/dclu-liveteach/src/classroom/comms/peer
 import * as classroom1Config from "./classroomConfigs/classroom1Config.json"
 import * as classroom2Config from "./classroomConfigs/classroom2Config.json"
 import * as classroom3Config from "./classroomConfigs/classroom3Config.json"
+import * as classroom4Config from "./classroomConfigs/classroom3Config.json"
 import { DoorManager } from './doors/doorManager'
 import { movePlayerTo } from '~system/RestrictedActions'
+import { SeatingData } from './SeatingData'
 
 export function main() {
 
@@ -45,8 +47,34 @@ export function main() {
     addScreen(Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium3.entity)
     addScreen(Vector3.create(39.15,9.73,20.5), Quaternion.fromEulerDegrees(0,0,0), Vector3.create(4.1,4.1,4.1),null)
 
+    //////////// Class 4 ////////////
+    ClassroomManager.RegisterClassroom(classroom4Config)
+    const podium4 = new Podium(Vector3.create(32,6.9+6.1,16.8), Vector3.create(0,90,0))
+    addScreen(Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium4.entity)
+    addScreen(Vector3.create(39.15,9.73+6.1,20.5), Quaternion.fromEulerDegrees(0,0,0), Vector3.create(4.1,4.1,4.1),null)
+
+    movePlayerTo({newRelativePosition: Vector3.create(37,15,9)})
     
-     movePlayerTo({newRelativePosition: Vector3.create(38,10,5)})
+    // Add seating 
+     let seatingData: SeatingData = new SeatingData()
+
+    // Apply offset
+    let offset = Vector3.create(0, 0.2, 0)
+    seatingData.seats.forEach((seat,index) => {
+        // update ids after combining
+        seat.id = index
+        seat.position = Vector3.add(seat.position, offset)
+        seat.lookAtTarget = Vector3.create(seat.position.x,seat.position.y,seat.position.z+5)
+    });
+
+    //Debugging  
+    // seatingData.seats.forEach(seat => {
+    //   let entity: ecs.Entity = ecs.engine.addEntity()
+    //   ecs.Transform.create(entity, {position:seat.position, rotation: Quaternion.fromEulerDegrees(seat.rotation.x,seat.rotation.y,seat.rotation.z)})
+    //   ecs.MeshRenderer.setBox(entity)
+    // });
+
+    new dclu.seating.SeatingController(seatingData, Vector3.create(12, -50, 19), Vector3.create(10, 7, 12), true)
 }
 
 export function addScreen(_position: Vector3, _rotation: Quaternion, _scale: Vector3, _parent: ecs.Entity): void {
