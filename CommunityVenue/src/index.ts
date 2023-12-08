@@ -14,6 +14,7 @@ import * as classroom4Config from "./classroomConfigs/classroom3Config.json"
 import { DoorManager } from './doors/doorManager'
 import { movePlayerTo } from '~system/RestrictedActions'
 import { SeatingData } from './SeatingData'
+import { LiftManager } from './lifts/liftManager'
 
 export function main() {
 
@@ -24,6 +25,7 @@ export function main() {
     setupUi()
 
     new Building() 
+    new LiftManager()
     new DoorManager()
 
     const communicationChannel = new PeerToPeerChannel()
@@ -52,8 +54,6 @@ export function main() {
     const podium4 = new Podium(Vector3.create(32,6.9+6.1,16.8), Vector3.create(0,90,0))
     addScreen(Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium4.entity)
     addScreen(Vector3.create(39.15,9.73+6.1,20.5), Quaternion.fromEulerDegrees(0,0,0), Vector3.create(4.1,4.1,4.1),null)
-
-    movePlayerTo({newRelativePosition: Vector3.create(37,15,9)})
     
     // Add seating 
      let seatingData: SeatingData = new SeatingData()
