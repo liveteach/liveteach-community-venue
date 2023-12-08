@@ -27,7 +27,7 @@ export function main() {
     new DoorManager()
 
     const communicationChannel = new PeerToPeerChannel()
-    ClassroomManager.Initialise(communicationChannel, true)
+    ClassroomManager.Initialise(communicationChannel, null, null, true)
 
     //////////// Class 1 ////////////
     ClassroomManager.RegisterClassroom(classroom1Config)
