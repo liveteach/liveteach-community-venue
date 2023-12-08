@@ -106,7 +106,7 @@ export class Lift {
             let withinHeight:boolean = false
             
             this.stops.forEach(stop => {
-                console.log("PlayerY: " + playerY)
+                //console.log("PlayerY: " + playerY)
                 if(playerY==stop){
                     withinHeight = true
                 }

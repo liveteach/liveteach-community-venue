@@ -1,19 +1,19 @@
 {
     "classroom": {
-        "guid": "382c74c3-721d-4f34-80e5-57657b6cbc27",
+        "guid": "424c8594-8fe0-4240-af9b-02f8c19a2929",
         "teacherID": "",
         "teacherName": "",
         "className": "",
         "classDescription": "",
         "origin": {
             "x": 38,
-            "y": 7.9,
-            "z": 11
+            "y": 15.5,
+            "z": 11.5
         },
         "volume": {
-            "x": 40,
-            "y": 10,
-            "z": 40
+            "x": 16,
+            "y": 5,
+            "z": 19
         },
         "autojoin": true,
         "capacity": "20",
