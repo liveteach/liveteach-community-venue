@@ -29,6 +29,9 @@ export function main() {
     const communicationChannel = new PeerToPeerChannel()
     ClassroomManager.Initialise(communicationChannel, null, null, true)
 
+    // Add wallet address here for testing
+    //ClassroomManager.AddTestTeacherAddress("0x0ced09e3728f7682e0fedf50f5fe1fe2e59add7b")
+
     //////////// Class 1 ////////////
     ClassroomManager.RegisterClassroom(classroom1Config)
     const podium1 = new Podium(Vector3.create(16,6.9,30.3), Vector3.create(0,-90,0))
