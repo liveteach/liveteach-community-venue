@@ -1,6 +1,8 @@
 import { Transform, engine } from "@dcl/sdk/ecs";
 import { Door } from "./door";
 import { Vector3 } from "@dcl/sdk/math";
+import { InternalDoor } from "./internalDoor";
+import { movePlayerTo } from "~system/RestrictedActions";
 
 export class DoorManager {
 
@@ -12,6 +14,9 @@ export class DoorManager {
         this.doors.push(new Door(Vector3.create(8.705,0.02,0.2),Vector3.create(0,90,0)))
         this.doors.push(new Door(Vector3.create(38.66,0.02,1.345),Vector3.create(0,90,0)))
         this.doors.push(new Door(Vector3.create(38.66,0.02,19.635),Vector3.create(0,90,0)))
+
+        new InternalDoor(Vector3.create(30.51,8.73,3.63),Vector3.create(0,180,0))
+        new InternalDoor(Vector3.create(30.51,14.83,3.63),Vector3.create(0,180,0))
 
         engine.addSystem(this.update.bind(this))
     }
