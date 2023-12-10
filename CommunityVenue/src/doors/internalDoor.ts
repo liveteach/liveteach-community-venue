@@ -2,6 +2,7 @@ import { Entity, engine, Transform, GltfContainer, Animator, InputAction, pointe
 import { Vector3, Quaternion } from "@dcl/sdk/math"
 import { movePlayerTo } from "~system/RestrictedActions"
 import * as utils from '@dcl-sdk/utils'
+import { AudioManager } from "../audio/audioManager"
 
 export class InternalDoor {
     entity: Entity
@@ -68,6 +69,7 @@ export class InternalDoor {
         if (!this.opened) {
             this.opened = true
             Animator.playSingleAnimation(this.entity, "DoorOpen",false)
+            AudioManager.playSwingDoor(Transform.get(this.entity).position)
         }
     }
 
@@ -75,6 +77,7 @@ export class InternalDoor {
         if (this.opened) {
             this.opened = false
             Animator.playSingleAnimation(this.entity, "DoorClose",false)
+            AudioManager.playSwingDoor(Transform.get(this.entity).position)
         }
     }
 }
