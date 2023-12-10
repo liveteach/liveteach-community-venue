@@ -15,6 +15,7 @@ import { DoorManager } from './doors/doorManager'
 import { movePlayerTo } from '~system/RestrictedActions'
 import { SeatingData } from './SeatingData'
 import { LiftManager } from './lifts/liftManager'
+import { AudioManager } from './audio/audioManager'
 
 export function main() {
 
@@ -24,6 +25,7 @@ export function main() {
     })
     setupUi()
 
+    new AudioManager()
     new Building()
     new LiftManager()
     new DoorManager()

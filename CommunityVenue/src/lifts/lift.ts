@@ -1,6 +1,7 @@
 import { Entity, GltfContainer, Transform, engine } from "@dcl/sdk/ecs";
 import { Color3, Quaternion, Vector3 } from "@dcl/sdk/math";
 import * as utils from '@dcl-sdk/utils'
+import { AudioManager } from "../audio/audioManager";
 
 export class Lift {
 
@@ -42,6 +43,7 @@ export class Lift {
             ()=>{
                 // enter
                 this.inLift = true
+                AudioManager.playElevator(Transform.get(this.lift).position)
             },
             ()=>{
                 // exit
