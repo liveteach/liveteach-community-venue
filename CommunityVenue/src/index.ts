@@ -3,7 +3,6 @@ import * as dclu from '@dclu/dclu-liveteach'
 import * as ecs from "@dcl/sdk/ecs"
 import { setupUi } from './ui'
 import { Quaternion, Vector3 } from '@dcl/sdk/math'
-import { DisplayPanel } from './displayPanel'
 import { Podium } from './podium/podium'
 import { ClassroomManager, ControllerUI } from '@dclu/dclu-liveteach/src/classroom'
 import { PeerToPeerChannel } from "@dclu/dclu-liveteach/src/classroom/comms/peerToPeerChannel";
@@ -12,7 +11,6 @@ import * as classroom2Config from "./classroomConfigs/classroom2Config.json"
 import * as classroom3Config from "./classroomConfigs/classroom3Config.json"
 import * as classroom4Config from "./classroomConfigs/classroom4Config.json"
 import { DoorManager } from './doors/doorManager'
-import { movePlayerTo } from '~system/RestrictedActions'
 import { SeatingData } from './SeatingData'
 import { LiftManager } from './lifts/liftManager'
 import { AudioManager } from './audio/audioManager'
@@ -34,34 +32,34 @@ export function main() {
     ClassroomManager.Initialise(communicationChannel, null, null, true)
 
     // Add contract guid here for testing
-    ClassroomManager.SetTestContractGuid("c73c16d2-e2a7-4acc-bdda-fb2205b5d634")
+    ClassroomManager.SetTestContractGuid("acbe1e1a-29e6-4dc3-a73d-375f1c756185")
 
     // Add wallet address here for testing
-    ClassroomManager.AddTestTeacherAddress("0x416fc23ffd33ded496650289e3c0d5b1ebd0033e")
+    ClassroomManager.AddTestTeacherAddress("0xaf53fd88beb7b9e45e54a3517cc200c016b318d5")
 
     //////////// Class 1 - Lecture Theatre 1 (left) ////////////
     ClassroomManager.RegisterClassroom(classroom1Config)
     const podium1 = new Podium(Vector3.create(16, 6.9, 30.3), Vector3.create(0, -90, 0))
-    addScreen(Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium1.entity)
-    addScreen(Vector3.create(11.9, 7, 45.58), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(8.15, 8.15, 8.15), null)
+    addScreen(classroom1Config.classroom.guid, Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium1.entity)
+    addScreen(classroom1Config.classroom.guid, Vector3.create(11.9, 7, 45.58), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(8.15, 8.15, 8.15), null)
 
     //////////// Class 2 - Lecture Theatre 2 (right) ////////////
     ClassroomManager.RegisterClassroom(classroom2Config)
     const podium2 = new Podium(Vector3.create(33, 6.9, 30.3), Vector3.create(0, -90, 0))
-    addScreen(Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium2.entity)
-    addScreen(Vector3.create(36.9, 7, 45.58), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(8.15, 8.15, 8.15), null)
+    addScreen(classroom2Config.classroom.guid, Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium2.entity)
+    addScreen(classroom2Config.classroom.guid, Vector3.create(36.9, 7, 45.58), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(8.15, 8.15, 8.15), null)
 
     //////////// Class 3 - Classroom 1 (bottom) ////////////
     ClassroomManager.RegisterClassroom(classroom3Config)
     const podium3 = new Podium(Vector3.create(32, 6.9, 16.8), Vector3.create(0, 90, 0))
-    addScreen(Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium3.entity)
-    addScreen(Vector3.create(39.15, 9.73, 20.5), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(4.1, 4.1, 4.1), null)
+    addScreen(classroom3Config.classroom.guid, Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium3.entity)
+    addScreen(classroom3Config.classroom.guid, Vector3.create(39.15, 9.73, 20.5), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(4.1, 4.1, 4.1), null)
 
     //////////// Class 4 - Classroom 2 (top) ////////////
     ClassroomManager.RegisterClassroom(classroom4Config)
     const podium4 = new Podium(Vector3.create(32, 6.9 + 6.1, 16.8), Vector3.create(0, 90, 0))
-    addScreen(Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium4.entity)
-    addScreen(Vector3.create(39.15, 9.73 + 6.1, 20.5), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(4.1, 4.1, 4.1), null)
+    addScreen(classroom4Config.classroom.guid, Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium4.entity)
+    addScreen(classroom4Config.classroom.guid, Vector3.create(39.15, 9.73 + 6.1, 20.5), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(4.1, 4.1, 4.1), null)
 
     // Add seating 
     let seatingData: SeatingData = new SeatingData()
@@ -75,7 +73,7 @@ export function main() {
         seat.lookAtTarget = Vector3.create(seat.position.x, seat.position.y, seat.position.z + 5)
     });
 
-    //ControllerUI.Show()
+    ControllerUI.Show()
 
     //Debugging  
     // seatingData.seats.forEach(seat => {
@@ -87,6 +85,6 @@ export function main() {
     new dclu.seating.SeatingController(seatingData, Vector3.create(12, -50, 19), Vector3.create(10, 7, 12), true)
 }
 
-export function addScreen(_position: Vector3, _rotation: Quaternion, _scale: Vector3, _parent: ecs.Entity): void {
-    ClassroomManager.AddScreen(_position, _rotation, _scale, _parent)
+export function addScreen(_guid: string, _position: Vector3, _rotation: Quaternion, _scale: Vector3, _parent: ecs.Entity): void {
+    ClassroomManager.AddScreen(_guid, _position, _rotation, _scale, _parent)
 }
