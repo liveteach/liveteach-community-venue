@@ -106,7 +106,6 @@ export class Podium {
 
         GltfContainer.create(this.controllerGraphic, { src: "models/podium/teacher_off.glb" })
 
-
         // Podium controls
         this.previousButton = new PodiumButton(
             this.entity,
