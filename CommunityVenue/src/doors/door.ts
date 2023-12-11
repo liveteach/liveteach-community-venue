@@ -1,5 +1,6 @@
 import { Animator, Entity, GltfContainer, Transform, engine } from "@dcl/sdk/ecs";
 import { Quaternion, Vector3 } from "@dcl/sdk/math";
+import { AudioManager } from "../audio/audioManager";
 
 export class Door {
 
@@ -41,6 +42,7 @@ export class Door {
         if (!this.opened) {
             this.opened = true
             Animator.playSingleAnimation(this.entity, "OpenDoor")
+            AudioManager.playSlideDoor(Transform.get(this.entity).position)
         }
     }
 
@@ -48,6 +50,7 @@ export class Door {
         if (this.opened) {
             this.opened = false
             Animator.playSingleAnimation(this.entity, "CloseDoor")
+            AudioManager.playSlideDoor(Transform.get(this.entity).position)
         }
     }
 }
