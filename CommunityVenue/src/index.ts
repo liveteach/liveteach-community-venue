@@ -14,8 +14,64 @@ import { DoorManager } from './doors/doorManager'
 import { SeatingData } from './SeatingData'
 import { LiftManager } from './lifts/liftManager'
 import { AudioManager } from './audio/audioManager'
+import { GetCurrentRealmResponse, getCurrentRealm } from "~system/EnvironmentApi"
+
+let devLiveTeachContractAddress: string = "0xf44b11C7c7248c592d0Cc1fACFd8a41e48C52762"
+let devTeachersContractAddress: string = "0x15eD220A421FD58A66188103A3a3411dA9d22295"
 
 export function main() {
+    ecs.executeTask(async () => {
+        const communicationChannel = new PeerToPeerChannel()
+
+        // Initialise the ClassroomManager asynchronously as it depends on getCurrentRealm
+        let getCurrentRealmResponse: GetCurrentRealmResponse = await getCurrentRealm({})
+        let useDev = false;
+        // detect tigertest realm
+        if (getCurrentRealmResponse &&
+            getCurrentRealmResponse.currentRealm &&
+            getCurrentRealmResponse.currentRealm.serverName) {
+            if (getCurrentRealmResponse.currentRealm.serverName.toLocaleLowerCase().indexOf("tigertest") != -1) {
+                useDev = true;
+            }
+        }
+        if (useDev) {
+            ClassroomManager.Initialise(communicationChannel, devLiveTeachContractAddress, devTeachersContractAddress, false)
+        }
+        else {
+            // default to mainnet
+            ClassroomManager.Initialise(communicationChannel, undefined, undefined, false)
+        }
+
+        // Add contract guid here for testing
+        ClassroomManager.SetTestContractGuid("c73c16d2-e2a7-4acc-bdda-fb2205b5d634")
+
+        // Add wallet address here for testing
+        ClassroomManager.AddTestTeacherAddress("0x506e79b1be8e638eaddf5fe2d7eced77539ebeeb")
+
+        //////////// Class 1 - Lecture Theatre 1 (left) ////////////
+        ClassroomManager.RegisterClassroom(classroom1Config)
+        const podium1 = new Podium(Vector3.create(16, 6.9, 30.3), Vector3.create(0, -90, 0))
+        addScreen(classroom1Config.classroom.guid, Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium1.entity)
+        addScreen(classroom1Config.classroom.guid, Vector3.create(11.9, 7, 45.58), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(8.15, 8.15, 8.15), null)
+
+        //////////// Class 2 - Lecture Theatre 2 (right) ////////////
+        ClassroomManager.RegisterClassroom(classroom2Config)
+        const podium2 = new Podium(Vector3.create(33, 6.9, 30.3), Vector3.create(0, -90, 0))
+        addScreen(classroom2Config.classroom.guid, Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium2.entity)
+        addScreen(classroom2Config.classroom.guid, Vector3.create(36.9, 7, 45.58), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(8.15, 8.15, 8.15), null)
+
+        //////////// Class 3 - Classroom 1 (bottom) ////////////
+        ClassroomManager.RegisterClassroom(classroom3Config)
+        const podium3 = new Podium(Vector3.create(32, 6.9, 16.8), Vector3.create(0, 90, 0))
+        addScreen(classroom3Config.classroom.guid, Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium3.entity)
+        addScreen(classroom3Config.classroom.guid, Vector3.create(39.15, 9.73, 20.5), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(4.1, 4.1, 4.1), null)
+
+        //////////// Class 4 - Classroom 2 (top) ////////////
+        ClassroomManager.RegisterClassroom(classroom4Config)
+        const podium4 = new Podium(Vector3.create(32, 6.9 + 6.1, 16.8), Vector3.create(0, 90, 0))
+        addScreen(classroom4Config.classroom.guid, Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium4.entity)
+        addScreen(classroom4Config.classroom.guid, Vector3.create(39.15, 9.73 + 6.1, 20.5), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(4.1, 4.1, 4.1), null)
+    })
 
     dclu.setup({
         ecs: ecs,
@@ -27,39 +83,6 @@ export function main() {
     new Building()
     new LiftManager()
     new DoorManager()
-
-    const communicationChannel = new PeerToPeerChannel()
-    ClassroomManager.Initialise(communicationChannel, null, null, true)
-
-    // Add contract guid here for testing
-    ClassroomManager.SetTestContractGuid("acbe1e1a-29e6-4dc3-a73d-375f1c756185")
-
-    // Add wallet address here for testing
-    ClassroomManager.AddTestTeacherAddress("0xaf53fd88beb7b9e45e54a3517cc200c016b318d5")
-
-    //////////// Class 1 - Lecture Theatre 1 (left) ////////////
-    ClassroomManager.RegisterClassroom(classroom1Config)
-    const podium1 = new Podium(Vector3.create(16, 6.9, 30.3), Vector3.create(0, -90, 0))
-    addScreen(classroom1Config.classroom.guid, Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium1.entity)
-    addScreen(classroom1Config.classroom.guid, Vector3.create(11.9, 7, 45.58), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(8.15, 8.15, 8.15), null)
-
-    //////////// Class 2 - Lecture Theatre 2 (right) ////////////
-    ClassroomManager.RegisterClassroom(classroom2Config)
-    const podium2 = new Podium(Vector3.create(33, 6.9, 30.3), Vector3.create(0, -90, 0))
-    addScreen(classroom2Config.classroom.guid, Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium2.entity)
-    addScreen(classroom2Config.classroom.guid, Vector3.create(36.9, 7, 45.58), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(8.15, 8.15, 8.15), null)
-
-    //////////// Class 3 - Classroom 1 (bottom) ////////////
-    ClassroomManager.RegisterClassroom(classroom3Config)
-    const podium3 = new Podium(Vector3.create(32, 6.9, 16.8), Vector3.create(0, 90, 0))
-    addScreen(classroom3Config.classroom.guid, Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium3.entity)
-    addScreen(classroom3Config.classroom.guid, Vector3.create(39.15, 9.73, 20.5), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(4.1, 4.1, 4.1), null)
-
-    //////////// Class 4 - Classroom 2 (top) ////////////
-    ClassroomManager.RegisterClassroom(classroom4Config)
-    const podium4 = new Podium(Vector3.create(32, 6.9 + 6.1, 16.8), Vector3.create(0, 90, 0))
-    addScreen(classroom4Config.classroom.guid, Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium4.entity)
-    addScreen(classroom4Config.classroom.guid, Vector3.create(39.15, 9.73 + 6.1, 20.5), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(4.1, 4.1, 4.1), null)
 
     // Add seating 
     let seatingData: SeatingData = new SeatingData()
@@ -73,7 +96,7 @@ export function main() {
         seat.lookAtTarget = Vector3.create(seat.position.x, seat.position.y, seat.position.z + 5)
     });
 
-    ControllerUI.Show()
+    //ControllerUI.Show()
 
     //Debugging  
     // seatingData.seats.forEach(seat => {
