@@ -18,6 +18,7 @@ import { GetCurrentRealmResponse, getCurrentRealm } from "~system/EnvironmentApi
 import { InteractiveModel } from "../contentUnits/InteractiveModel/interactiveModel"
 import { Poll } from "../contentUnits/poll/poll"
 import { Quiz } from "../contentUnits/quiz/quiz"
+import { BakeryGame } from './bakery/bakeryGame'
 
 let devLiveTeachContractAddress: string = "0xf44b11C7c7248c592d0Cc1fACFd8a41e48C52762"
 let devTeachersContractAddress: string = "0x15eD220A421FD58A66188103A3a3411dA9d22295"
@@ -80,6 +81,7 @@ export function main() {
         ClassroomManager.RegisterContentUnit("poll", new Poll())
         ClassroomManager.RegisterContentUnit("quiz", new Quiz())
         ClassroomManager.RegisterContentUnit("interactive_model", new InteractiveModel())
+        ClassroomManager.RegisterContentUnit("bakery", new BakeryGame())
     })
 
     dclu.setup({
