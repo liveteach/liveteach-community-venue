@@ -1,5 +1,7 @@
 import { Color4 } from "@dcl/sdk/math";
 import { ClassroomManager } from "@dclu/dclu-liveteach/src/classroom";
+import { CommunicationManager } from "@dclu/dclu-liveteach/src/classroom/comms/communicationManager";
+import { UserDataHelper } from "@dclu/dclu-liveteach/src/classroom/userDataHelper";
 import { IContentUnit } from "@dclu/dclu-liveteach/src/contentUnits";
 import *  as  ui from 'dcl-ui-toolkit'
 
@@ -43,13 +45,15 @@ export class Quiz implements IContentUnit {
         const isStudent = ClassroomManager.classController?.isStudent()
         if(isStudent) return
 
-        console.log("Student chose " + this.options[_data] + ", which is the " + ((_data == this.answerIndex) ? "correct" : "wrong") + " answer")
+        CommunicationManager.EmitLog("Quiz result: " + _data[0] + " - " + ((_data[1] == this.answerIndex) ? "correct" : "wrong"), ClassroomManager.activeClassroom?.guid, false, false)
     }
 
     private setupUI(): void {
         const isStudent = ClassroomManager.classController?.isStudent()
-        const height: number = (isStudent ? 150 : 100) + (this.options.length * 55)
-        const startY: number = (height / 2) - 30
+        
+        const titleData = this.getTitleData(this.question)
+        const height: number = (isStudent ? 170 : 100) + (this.options.length * 55) + (titleData[1] * 20)
+        const startY: number = (height / 2) - 50 - (titleData[1] * 10)
 
         this.quizPrompt = ui.createComponent(ui.CustomPrompt, {
             style: ui.PromptStyles.DARK,
@@ -63,12 +67,14 @@ export class Quiz implements IContentUnit {
 
         //Question
         this.quizPrompt.addText({
-            value: this.question,
+            value: titleData[0],
             xPosition: 0,
             yPosition: startY,
             color: Color4.White(),
             size: 25,
         })
+
+        const optionsStartY = startY - (titleData[1] * 10)
 
         //Options
         this.options.forEach((option, index) => {
@@ -76,7 +82,7 @@ export class Quiz implements IContentUnit {
                 style: ui.ButtonStyles.SQUAREBLACK,
                 text: option,
                 xPosition: 90,
-                yPosition: startY - 70 - (index * 55),
+                yPosition: optionsStartY - 70 - (index * 55),
                 onMouseDown: () => {
                     if (isStudent && this.chosenIndex < 0) {
                         this.select(index)
@@ -89,7 +95,7 @@ export class Quiz implements IContentUnit {
                 style: ui.ButtonStyles.SQUAREWHITE,
                 text: option,
                 xPosition: 90,
-                yPosition: startY - 70 - (index * 55),
+                yPosition: optionsStartY - 70 - (index * 55),
                 onMouseDown: () => {
                     if (isStudent && this.chosenIndex < 0) {
                         this.select(index)
@@ -109,7 +115,7 @@ export class Quiz implements IContentUnit {
                 style: ui.ButtonStyles.RED,
                 text: 'Submit',
                 xPosition: 0,
-                yPosition: startY - 80 - (this.options.length * 55),
+                yPosition: optionsStartY - 80 - (this.options.length * 55),
                 onMouseDown: () => {
                     if (this.chosenIndex < 0) {
                         this.answer()
@@ -125,7 +131,7 @@ export class Quiz implements IContentUnit {
                 value: "",
                 size: 24,
                 xPosition: 0,
-                yPosition: startY - 80 - (this.options.length * 55)
+                yPosition: optionsStartY - 80 - (this.options.length * 55)
             })
             this.feedbackText.hide()
         }
@@ -169,7 +175,30 @@ export class Quiz implements IContentUnit {
             }
 
             this.feedbackText.show()
-            ClassroomManager.SendContentUnitData(this.chosenIndex)
+            ClassroomManager.SendContentUnitData([UserDataHelper.GetDisplayName(), this.chosenIndex])
         }
+    }
+
+    private getTitleData(_title: string): [string, number] {
+        const maxWordsPerLine: number = 4
+        const words = _title.split(" ")
+
+        let title: string = ""
+        let currentLineWordCount: number = 0
+        let lines: number = 1
+        for (let i = 0; i < words.length; i++) {
+            title += words[i]
+            currentLineWordCount++
+            if (currentLineWordCount >= maxWordsPerLine) {
+                currentLineWordCount = 0
+                lines++
+                if(i < words.length - 1) title += "\n"
+            }
+            else {
+                title += " "
+            }
+        }
+
+        return [title, lines]
     }
 }
