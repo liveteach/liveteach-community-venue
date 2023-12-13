@@ -15,6 +15,9 @@ import { SeatingData } from './SeatingData'
 import { LiftManager } from './lifts/liftManager'
 import { AudioManager } from './audio/audioManager'
 import { GetCurrentRealmResponse, getCurrentRealm } from "~system/EnvironmentApi"
+import { InteractiveModel } from "../contentUnits/InteractiveModel/interactiveModel"
+import { Poll } from "../contentUnits/poll/poll"
+import { Quiz } from "../contentUnits/quiz/quiz"
 
 let devLiveTeachContractAddress: string = "0xf44b11C7c7248c592d0Cc1fACFd8a41e48C52762"
 let devTeachersContractAddress: string = "0x15eD220A421FD58A66188103A3a3411dA9d22295"
@@ -71,6 +74,12 @@ export function main() {
         const podium4 = new Podium(Vector3.create(32, 6.9 + 6.1, 16.8), Vector3.create(0, 90, 0))
         addScreen(classroom4Config.classroom.guid, Vector3.create(0.35, 1.7, -0.06), Quaternion.fromEulerDegrees(45, 90, 0), Vector3.create(0.2, 0.2, 0.2), podium4.entity)
         addScreen(classroom4Config.classroom.guid, Vector3.create(39.15, 9.73 + 6.1, 20.5), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(4.1, 4.1, 4.1), null)
+
+
+        //Register content units
+        ClassroomManager.RegisterContentUnit("poll", new Poll())
+        ClassroomManager.RegisterContentUnit("quiz", new Quiz())
+        ClassroomManager.RegisterContentUnit("interactive_model", new InteractiveModel())
     })
 
     dclu.setup({
