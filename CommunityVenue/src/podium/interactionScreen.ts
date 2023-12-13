@@ -144,6 +144,9 @@ export class InteractionScreen {
         if (this.interactionIndex >= ClassroomManager.activeContent.contentUnits.length) {
             this.interactionIndex = 0
         }
+        if (ContentUnitManager.activeUnit) {
+            ClassroomManager.EndContentUnit()
+        }
         this.update()
     }
 
@@ -151,6 +154,9 @@ export class InteractionScreen {
         this.interactionIndex--
         if (this.interactionIndex < 0) {
             this.interactionIndex = ClassroomManager.activeContent.contentUnits.length - 1
+        }
+        if (ContentUnitManager.activeUnit) {
+            ClassroomManager.EndContentUnit()
         }
         this.update()
     }
