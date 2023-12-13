@@ -109,7 +109,21 @@ export class InteractionScreen {
                     })
                     TextShape.getMutable(self.startEndButtonText).text = "End"
 
-                    ClassroomManager.StartContentUnit(ClassroomManager.activeContent.contentUnits[self.interactionIndex].key, ClassroomManager.activeContent.contentUnits[self.interactionIndex].data)
+                    let key: string = ""
+                    let data: any
+                    if (self.interactionIndex >= ClassroomManager.activeContent.contentUnits.length) {
+                        key = "link"
+                        data = {
+                            src: ClassroomManager.activeContent.links[self.interactionIndex - ClassroomManager.activeContent.contentUnits.length].src,
+                            caption: ClassroomManager.activeContent.links[self.interactionIndex - ClassroomManager.activeContent.contentUnits.length].caption
+                        }
+                    }
+                    else {
+                        key = ClassroomManager.activeContent.contentUnits[self.interactionIndex].key
+                        data = ClassroomManager.activeContent.contentUnits[self.interactionIndex].data
+                    }
+
+                    ClassroomManager.StartContentUnit(key, data)
                 }
             }
         )
@@ -141,8 +155,11 @@ export class InteractionScreen {
 
     next(): void {
         this.interactionIndex++
-        if (this.interactionIndex >= ClassroomManager.activeContent.contentUnits.length) {
+        if (this.interactionIndex >= ClassroomManager.activeContent.contentUnits.length + ClassroomManager.activeContent.links?.length ?? 0) {
             this.interactionIndex = 0
+        }
+        if (ContentUnitManager.activeUnit) {
+            ClassroomManager.EndContentUnit()
         }
         this.update()
     }
@@ -150,7 +167,10 @@ export class InteractionScreen {
     previous(): void {
         this.interactionIndex--
         if (this.interactionIndex < 0) {
-            this.interactionIndex = ClassroomManager.activeContent.contentUnits.length - 1
+            this.interactionIndex = (ClassroomManager.activeContent.contentUnits.length + ((ClassroomManager.activeContent.links?.length) ?? 0)) - 1
+        }
+        if (ContentUnitManager.activeUnit) {
+            ClassroomManager.EndContentUnit()
         }
         this.update()
     }
@@ -167,6 +187,13 @@ export class InteractionScreen {
     }
 
     private update(): void {
-        TextShape.getMutable(this.name).text = ClassroomManager.activeContent.contentUnits[this.interactionIndex].name
+        let name: string = ""
+        if (this.interactionIndex >= ClassroomManager.activeContent.contentUnits.length) {
+            name = ClassroomManager.activeContent.links[this.interactionIndex - ClassroomManager.activeContent.contentUnits.length].caption
+        }
+        else {
+            name = ClassroomManager.activeContent.contentUnits[this.interactionIndex].name
+        }
+        TextShape.getMutable(this.name).text = name
     }
 }

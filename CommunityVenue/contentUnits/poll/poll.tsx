@@ -57,8 +57,10 @@ export class Poll implements IContentUnit {
 
     private setupUI(): void {
         const isStudent = ClassroomManager.classController?.isStudent()
-        const height: number = (isStudent ? 150 : 100) + (this.options.length * 55)
-        const startY: number = (height / 2) - 20
+
+        const titleData = this.getTitleData(this.title)
+        const height: number = (isStudent ? 150 : 100) + (this.options.length * 55) + (titleData[1] * 20)
+        const startY: number = (height / 2) - 50 - (titleData[1] * 10)
         this.pollPrompt = ui.createComponent(ui.CustomPrompt, {
             style: ui.PromptStyles.DARK,
             height: height,
@@ -69,19 +71,16 @@ export class Poll implements IContentUnit {
             }
         })
 
-        //if (isStudent) {
-        //    this.pollPrompt.closeIcon.width = 0
-        //    this.pollPrompt.closeIcon.height = 0
-        //}
-
         //Title
         this.pollPrompt.addText({
-            value: this.title,
+            value: titleData[0],
             xPosition: 0,
             yPosition: startY,
             color: Color4.White(),
             size: 20,
         })
+
+        const optionsStartY = startY - (titleData[1] * 10)
 
         //Options
         this.options.forEach((option, index) => {
@@ -89,27 +88,27 @@ export class Poll implements IContentUnit {
                 style: ui.ButtonStyles.SQUAREBLACK,
                 text: option,
                 xPosition: 90,
-                yPosition: startY - 70 - (index * 55),
+                yPosition: optionsStartY - 70 - (index * 55),
                 onMouseDown: () => {
                     if (isStudent && this.votedIndex < 0) {
                         this.select(index)
                     }
                 },
             })
-            if(promptButton?.imageElement.uiTransform) promptButton.imageElement.uiTransform.width = 350
+            if (promptButton?.imageElement.uiTransform) promptButton.imageElement.uiTransform.width = 350
 
             const promptButtonSelected = this.pollPrompt?.addButton({
                 style: ui.ButtonStyles.SQUAREWHITE,
                 text: option,
                 xPosition: 90,
-                yPosition: startY - 70 - (index * 55),
+                yPosition: optionsStartY - 70 - (index * 55),
                 onMouseDown: () => {
                     if (isStudent && this.votedIndex < 0) {
                         this.select(index)
                     }
                 },
             })
-            if(promptButtonSelected?.imageElement.uiTransform) promptButtonSelected.imageElement.uiTransform.width = 350
+            if (promptButtonSelected?.imageElement.uiTransform) promptButtonSelected.imageElement.uiTransform.width = 350
             promptButtonSelected?.hide()
 
             this.optionButtons.push(promptButton)
@@ -119,7 +118,7 @@ export class Poll implements IContentUnit {
             const voteLabel = this.pollPrompt?.addText({
                 value: isStudent ? '' : this.votes[index],
                 xPosition: 148,
-                yPosition: startY - 63 - (index * 55),
+                yPosition: optionsStartY - 63 - (index * 55),
                 size: 25,
                 color: Color4.Green()
             })
@@ -132,7 +131,7 @@ export class Poll implements IContentUnit {
                 style: ui.ButtonStyles.RED,
                 text: 'Submit',
                 xPosition: 0,
-                yPosition: startY - 80 - (this.options.length * 55),
+                yPosition: optionsStartY - 80 - (this.options.length * 55),
                 onMouseDown: () => {
                     if (this.votedIndex < 0) {
                         this.vote()
@@ -172,5 +171,28 @@ export class Poll implements IContentUnit {
             this.submitButton.hide()
             ClassroomManager.SendContentUnitData(this.votedIndex)
         }
+    }
+
+    private getTitleData(_title: string): [string, number] {
+        const maxWordsPerLine: number = 6
+        const words = _title.split(" ")
+
+        let title: string = ""
+        let currentLineWordCount: number = 0
+        let lines: number = 1
+        for (let i = 0; i < words.length; i++) {
+            title += words[i]
+            currentLineWordCount++
+            if (currentLineWordCount >= maxWordsPerLine) {
+                currentLineWordCount = 0
+                lines++
+                if(i < words.length - 1) title += "\n"
+            }
+            else {
+                title += " "
+            }
+        }
+
+        return [title, lines]
     }
 }
