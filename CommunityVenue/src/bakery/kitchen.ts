@@ -3,7 +3,6 @@ import { Quaternion, Vector3 } from "@dcl/sdk/math";
 import { Draw } from "./draw";
 import { Oven } from "./oven";
 import { Instructions } from "./instructions";
-import { CarryItem } from "./items/carryItem";
 import { PlaceableArea } from "./items/placeableArea";
 import { ItemManager } from "./items/itemManager";
 
@@ -12,11 +11,15 @@ export class Kitchen{
     counterEntity: Entity
     topDrawPositions: number [] = [-0.302,-0.93,-2.327,-2.955]
     bottomDrawPositions: number [] = [-0.04,-0.668,-2.065,-2.693]
-
-    static carryItem: CarryItem = null
+    itemManager: ItemManager
+    instructions: Instructions
+    static instance:Kitchen
+    draws:Draw[] = []
 
     constructor(_transform:TransformTypeWithOptionals){
         this.counterEntity = engine.addEntity()
+        this.itemManager = new ItemManager(this.counterEntity)
+
         Transform.create(this.counterEntity, _transform)
         GltfContainer.create(this.counterEntity, {src:"models/bakery/counter.glb"})
 
@@ -30,6 +33,8 @@ export class Kitchen{
                 position: Vector3.create(drawPosition,0.98,0.01)
             })
             draw.startPos = Transform.get(draw.entity).position
+            this.draws.push(draw)
+            this.itemManager.placeableAreas.push(new PlaceableArea(draw.entity,Vector3.create(0,-0.12,-0.2)))
         });        
 
         this.bottomDrawPositions.forEach(drawPosition => {
@@ -39,28 +44,28 @@ export class Kitchen{
                 position: Vector3.create(drawPosition,0.46,0.03)
             })
             draw.startRot = Transform.get(draw.entity).rotation
+            this.draws.push(draw)
         });
 
-        new ItemManager(this.counterEntity)
+        
+        this.instructions = new Instructions({
+            position: Vector3.create(38.9,15.5,18.5), 
+            rotation: Quaternion.fromEulerDegrees(0,-90,0) 
+        }) 
 
-        new Instructions({
-            position: Vector3.create(38.9,15.5,18.5),
-            rotation: Quaternion.fromEulerDegrees(0,-90,0)
-        })
+        this.itemManager.spawnIngredients()
+
+        Kitchen.instance = this
     }
 
-    static setCarriedItem(_carryItem:CarryItem){
-        // Only pick something up if my hands are free
-        if(Kitchen.carryItem == null){
-            Kitchen.carryItem = _carryItem
-        }
-    }
-
-    static placeCarriedItem(_placeableArea:PlaceableArea){
-        // Check that the placeable area doesn't already have an item and I am carrying one
-        if(_placeableArea.carryItem == null && Kitchen.carryItem != null){
-            _placeableArea.carryItem = Kitchen.carryItem
-            Kitchen.carryItem = null
-        }
+    destroy(){
+        this.itemManager.destroy()
+        this.instructions.destroy()
+        this.oven.destroy()
+        this.draws.forEach(draw => {
+            engine.removeEntity(draw.entity)
+        });
+        this.draws = []
+        engine.removeEntity(this.counterEntity)
     }
 }
