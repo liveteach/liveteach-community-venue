@@ -11,6 +11,8 @@ export class AudioManager {
   static drawClose: AudioEntity
   static ovenDoorOpen: AudioEntity
   static ovenDoorClose: AudioEntity
+  static dialTurn: AudioEntity
+  static success: AudioEntity
 
   constructor() {
 
@@ -24,6 +26,8 @@ export class AudioManager {
     AudioManager.drawClose = new AudioEntity("audio/drawClose.mp3", 0.75, 2)
     AudioManager.ovenDoorOpen = new AudioEntity("audio/ovenOpen.mp3", 0.5, 1)
     AudioManager.ovenDoorClose = new AudioEntity("audio/ovenClose.mp3", 0.5, 1)
+    AudioManager.dialTurn = new AudioEntity("audio/dialTurn.mp3", 0.2,2)
+    AudioManager.success = new AudioEntity("audio/success.mp3",1,2)
 
   }
 
@@ -53,6 +57,14 @@ export class AudioManager {
 
   static playOvenClose(_position: Vector3): void {
     AudioManager.ovenDoorClose.playSound(_position)
+  }
+
+  static playDialTurn():void {
+    AudioManager.dialTurn.playSound(Transform.get(engine.PlayerEntity).position)
+  }
+
+  static playSuccess():void {
+    AudioManager.success.playSound(Transform.get(engine.PlayerEntity).position)
   }
 
 } 
