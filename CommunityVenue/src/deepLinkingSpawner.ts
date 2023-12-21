@@ -31,7 +31,7 @@ export class DeepLinkingSpawner {
                     case "9222a104-9eae-41b4-87b1-ec4b9116e47b" : // CLASSROOM 1
                         movePlayerTo({newRelativePosition:Vector3.create(38.3,9,5),cameraTarget:Vector3.create(38.3,9,19.25)})
                         break
-                    case "424c8594-8fe0-4240-af9b-02f8c19a2929" : // CLASSROOM 1
+                    case "424c8594-8fe0-4240-af9b-02f8c19a2929" : // CLASSROOM 2
                         movePlayerTo({newRelativePosition:Vector3.create(38.3,15,5),cameraTarget:Vector3.create(38.3,15,19.25)})
                         break
                 }
