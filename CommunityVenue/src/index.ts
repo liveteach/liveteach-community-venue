@@ -20,6 +20,7 @@ import { Poll } from "../contentUnits/poll/poll"
 import { Quiz } from "../contentUnits/quiz/quiz"
 import { BakeryGame } from './bakery/bakeryGame'
 import { DeepLinkingSpawner } from './deepLinkingSpawner'
+import { TeleporterBoard } from './teleporterBoard'
 
 let devLiveTeachContractAddress: string = "0xf44b11C7c7248c592d0Cc1fACFd8a41e48C52762"
 let devTeachersContractAddress: string = "0x15eD220A421FD58A66188103A3a3411dA9d22295"
@@ -98,6 +99,12 @@ export function main() {
         seat.position = Vector3.add(seat.position, offset)
         seat.lookAtTarget = Vector3.create(seat.position.x, seat.position.y, seat.position.z + 5)
     });
+
+    // Teleporters
+    new TeleporterBoard({
+        position: Vector3.create(20,0,11.5),
+        rotation: Quaternion.fromEulerDegrees(0,180,0)
+    })
 
     //ControllerUI.Show()
 
