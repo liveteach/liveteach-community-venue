@@ -74,7 +74,7 @@ export function main() {
         ClassroomManager.RegisterContentUnit("bakery", new BakeryGame())
 
         new DeepLinkingSpawner() // Spawn the user at their class room if they come from a URL with their class room ID
-    })
+    
 
     dclu.setup({
         ecs: ecs,
