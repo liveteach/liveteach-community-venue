@@ -1,6 +1,5 @@
 import { Entity, engine, Transform, GltfContainer, Animator, InputAction, pointerEventsSystem } from "@dcl/sdk/ecs"
 import { Vector3, Quaternion } from "@dcl/sdk/math"
-import { movePlayerTo } from "~system/RestrictedActions"
 import * as utils from '@dcl-sdk/utils'
 import { AudioManager } from "../audio/audioManager"
 

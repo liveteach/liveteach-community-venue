@@ -2,7 +2,6 @@ import { Transform, engine } from "@dcl/sdk/ecs";
 import { Door } from "./door";
 import { Vector3 } from "@dcl/sdk/math";
 import { InternalDoor } from "./internalDoor";
-import { movePlayerTo } from "~system/RestrictedActions";
 
 export class DoorManager {
 

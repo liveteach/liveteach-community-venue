@@ -83,6 +83,8 @@ export function main() {
         ClassroomManager.RegisterContentUnit("quiz", new Quiz())
         ClassroomManager.RegisterContentUnit("interactive_model", new InteractiveModel())
         ClassroomManager.RegisterContentUnit("bakery", new BakeryGame())
+
+        new DeepLinkingSpawner() // Spawn the user at their class room if they come from a URL with their class room ID
     })
 
     dclu.setup({
@@ -95,8 +97,6 @@ export function main() {
     new Building()
     new LiftManager()
     new DoorManager()
-
-    new DeepLinkingSpawner() // Spawn the user at their class room if they come from a URL with their class room ID
 
     // Add seating 
     let seatingData: SeatingData = new SeatingData()
