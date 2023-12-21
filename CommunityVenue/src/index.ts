@@ -19,6 +19,7 @@ import { InteractiveModel } from "../contentUnits/InteractiveModel/interactiveMo
 import { Poll } from "../contentUnits/poll/poll"
 import { Quiz } from "../contentUnits/quiz/quiz"
 import { BakeryGame } from './bakery/bakeryGame'
+import { DeepLinkingSpawner } from './deepLinkingSpawner'
 
 let devLiveTeachContractAddress: string = "0xf44b11C7c7248c592d0Cc1fACFd8a41e48C52762"
 let devTeachersContractAddress: string = "0x15eD220A421FD58A66188103A3a3411dA9d22295"
@@ -94,6 +95,8 @@ export function main() {
     new Building()
     new LiftManager()
     new DoorManager()
+
+    new DeepLinkingSpawner() // Spawn the user at their class room if they come from a URL with their class room ID
 
     // Add seating 
     let seatingData: SeatingData = new SeatingData()
