@@ -19,8 +19,8 @@ import { InteractiveModel } from "../contentUnits/InteractiveModel/interactiveMo
 import { Poll } from "../contentUnits/poll/poll"
 import { Quiz } from "../contentUnits/quiz/quiz"
 import { BakeryGame } from './bakery/bakeryGame'
-import { DeepLinkingSpawner } from './deepLinkingSpawner'
-import { TeleporterBoard } from './teleporterBoard'
+import { DeepLinkingSpawner } from './teleport/deepLinkingSpawner'
+import { TeleporterBoard } from './teleport/teleporterBoard'
 
 let devLiveTeachContractAddress: string = "0xf44b11C7c7248c592d0Cc1fACFd8a41e48C52762"
 let devTeachersContractAddress: string = "0x15eD220A421FD58A66188103A3a3411dA9d22295"
@@ -101,10 +101,27 @@ export function main() {
     });
 
     // Teleporters
-    new TeleporterBoard({
+    new TeleporterBoard({ // Main Entrance
         position: Vector3.create(20,0,11.5),
         rotation: Quaternion.fromEulerDegrees(0,180,0)
     })
+    new TeleporterBoard({ // Back Entrance
+        position: Vector3.create(26.5,0,12.4),
+        rotation: Quaternion.fromEulerDegrees(0,0,0)
+    })
+    new TeleporterBoard({ // Between Theatre 1&2
+        position: Vector3.create(23.5,6.8,30.1),
+        rotation: Quaternion.fromEulerDegrees(0,90,0)
+    })
+    new TeleporterBoard({ // Class room 1 hall
+        position: Vector3.create(26.6,6.8,11.53),
+        rotation: Quaternion.fromEulerDegrees(0,0,0)
+    })
+    new TeleporterBoard({ // Class room 2 hall
+        position: Vector3.create(26.6,12.9,11.53),
+        rotation: Quaternion.fromEulerDegrees(0,0,0)
+    })
+    
 
     //ControllerUI.Show()
 
