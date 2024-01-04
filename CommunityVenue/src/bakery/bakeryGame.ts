@@ -6,13 +6,13 @@ export class BakeryGame implements IContentUnit{
     kitchen:Kitchen = null
     
     constructor() { 
-        
+        this.start({})
     }
 
     start(_data: any): void {
         if(this.kitchen!=null){
             this.kitchen.destroy()
-        }
+        } 
 
         this.kitchen = new Kitchen({
             position:Vector3.create(37.2,12.9,16.5), 
