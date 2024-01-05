@@ -6,7 +6,7 @@ export class BakeryGame implements IContentUnit{
     kitchen:Kitchen = null
     
     constructor() { 
-        this.start({})
+        
     }
 
     start(_data: any): void {
