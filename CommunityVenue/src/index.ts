@@ -37,12 +37,6 @@ export function main() {
         ClassroomManager.Initialise(communicationChannel, undefined, undefined, false)
     }
 
-    // Add contract guid here for testing
-    ClassroomManager.SetTestContractGuid("c73c16d2-e2a7-4acc-bdda-fb2205b5d634")
-
-    // Add wallet address here for testing
-    ClassroomManager.AddTestTeacherAddress("0x79e2e07091cc8e5cf5a99104d313808ab20e3f1c")
-
     //////////// Class 1 - Lecture Theatre 1 (left) ////////////
     ClassroomManager.RegisterClassroom(classroom1Config)
     const podium1 = new Podium(Vector3.create(16, 6.9, 30.3), Vector3.create(0, -90, 0))
