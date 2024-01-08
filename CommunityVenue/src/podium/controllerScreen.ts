@@ -156,6 +156,20 @@ export class ControllerScreen {
         }
     }
 
+    toStart(): void {
+        if (ClassroomManager.classController) {
+            ClassroomManager.classController.selectedClassIndex = 0
+            this.update()
+        }
+    }
+
+    toEnd(): void {
+        if (ClassroomManager.classController) {
+            ClassroomManager.classController.selectedClassIndex = ClassroomManager.classController.classList.length - 1
+            this.update()
+        }
+    }
+
     hasNext(): boolean {
         return ClassroomManager.classController?.selectedClassIndex < ClassroomManager.classController.classList.length - 1
     }

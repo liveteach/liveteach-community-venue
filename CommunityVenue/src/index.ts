@@ -41,7 +41,7 @@ export function main() {
     ClassroomManager.SetTestContractGuid("c73c16d2-e2a7-4acc-bdda-fb2205b5d634")
 
     // Add wallet address here for testing
-    ClassroomManager.AddTestTeacherAddress("0xcf6997763eaaadf9fd7eeffe080cabd6fdd322d5")
+    ClassroomManager.AddTestTeacherAddress("0x79e2e07091cc8e5cf5a99104d313808ab20e3f1c")
 
     //////////// Class 1 - Lecture Theatre 1 (left) ////////////
     ClassroomManager.RegisterClassroom(classroom1Config)

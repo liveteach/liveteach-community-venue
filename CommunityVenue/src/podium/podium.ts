@@ -132,7 +132,20 @@ export class Podium {
                     ClassroomManager.screenManager?.previous()
                 }
                 self.updateButtonGraphics()
-            }
+            },
+            function () {
+                if (self.controllerScreen.open) {
+                    self.controllerScreen.toStart()
+                }
+                else if (self.interactionScreen.open) {
+                    self.interactionScreen.toStart()
+                }
+                else {
+                    ClassroomManager.screenManager?.toStart()
+                }
+                self.updateButtonGraphics()
+            },
+            true
         )
 
         this.nextButton = new PodiumButton(
@@ -141,7 +154,7 @@ export class Podium {
             Quaternion.fromEulerDegrees(0, 0, 45),
             Vector3.create(0.1, 0.05, 0.1),
             "Next",
-            () => {
+            function () {
                 if (self.controllerScreen.open) {
                     self.controllerScreen.next()
                 }
@@ -152,7 +165,20 @@ export class Podium {
                     ClassroomManager.screenManager?.next()
                 }
                 self.updateButtonGraphics()
-            }
+            },
+            function () {
+                if (self.controllerScreen.open) {
+                    self.controllerScreen.toEnd()
+                }
+                else if (self.interactionScreen.open) {
+                    self.interactionScreen.toEnd()
+                }
+                else {
+                    ClassroomManager.screenManager?.toEnd()
+                }
+                self.updateButtonGraphics()
+            },
+            true
         )
 
         const self = this
