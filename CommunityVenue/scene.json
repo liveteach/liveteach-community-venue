@@ -2,14 +2,14 @@
 	"ecs7": true,
 	"runtimeVersion": "7",
 	"display": {
-		"title": "SDK7 Scene Template",
-		"description": "template scene with SDK7",
+		"title": "Live Teach Community Venue",
+		"description": "",
 		"navmapThumbnail": "images/scene-thumbnail.png",
 		"favicon": "favicon_asset"
 	},
 	"owner": "",
 	"contact": {
-		"name": "SDK",
+		"name": "DCLU",
 		"email": ""
 	},
 	"main": "bin/index.js",
