@@ -155,7 +155,7 @@ export class InteractionScreen {
 
     next(): void {
         this.interactionIndex++
-        if (this.interactionIndex >= ClassroomManager.activeContent.contentUnits.length + ClassroomManager.activeContent.links?.length ?? 0) {
+        if (this.interactionIndex >= (ClassroomManager.activeContent.contentUnits.length + ClassroomManager.activeContent.links?.length ?? 0)) {
             this.interactionIndex = 0
         }
         if (ContentUnitManager.activeUnit) {
@@ -173,6 +173,30 @@ export class InteractionScreen {
             ClassroomManager.EndContentUnit()
         }
         this.update()
+    }
+
+    toStart(): void {
+        this.interactionIndex = 0
+        if (ContentUnitManager.activeUnit) {
+            ClassroomManager.EndContentUnit()
+        }
+        this.update()
+    }
+
+    toEnd(): void {
+        this.interactionIndex = (ClassroomManager.activeContent.contentUnits.length + ClassroomManager.activeContent.links?.length ?? 0) - 1
+        if (ContentUnitManager.activeUnit) {
+            ClassroomManager.EndContentUnit()
+        }
+        this.update()
+    }
+
+    hasNext(): boolean {
+        return this.interactionIndex < (ClassroomManager.activeContent.contentUnits.length + ClassroomManager.activeContent.links?.length ?? 0) - 1
+    }
+
+    hasPrevious(): boolean {
+        return this.interactionIndex > 0
     }
 
     hide(): void {
