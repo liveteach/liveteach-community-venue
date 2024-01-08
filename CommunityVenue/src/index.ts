@@ -38,10 +38,10 @@ export function main() {
     }
 
     // Add contract guid here for testing
-    ClassroomManager.SetTestContractGuid("9222a104-9eae-41b4-87b1-ec4b9116e47b")
+    ClassroomManager.SetTestContractGuid("c73c16d2-e2a7-4acc-bdda-fb2205b5d634")
 
     // Add wallet address here for testing
-    ClassroomManager.AddTestTeacherAddress("0xbea7ad6cdb932fd81eb386cc9bd21e426b99cb37")
+    ClassroomManager.AddTestTeacherAddress("0xdcb5d7a318e133d86ccffad34a1b941115e0bbb1")
 
     //////////// Class 1 - Lecture Theatre 1 (left) ////////////
     ClassroomManager.RegisterClassroom(classroom1Config)
@@ -68,14 +68,14 @@ export function main() {
     addScreen(classroom4Config.classroom.guid, Vector3.create(39.15, 9.73 + 6.1, 20.5), Quaternion.fromEulerDegrees(0, 0, 0), Vector3.create(4.1, 4.1, 4.1), null)
 
 
-        //Register content units
-        ClassroomManager.RegisterContentUnit("poll", new Poll())
-        ClassroomManager.RegisterContentUnit("quiz", new Quiz())
-        ClassroomManager.RegisterContentUnit("interactive_model", new InteractiveModel())
-        ClassroomManager.RegisterContentUnit("bakery", new BakeryGame())
+    //Register content units
+    ClassroomManager.RegisterContentUnit("poll", new Poll())
+    ClassroomManager.RegisterContentUnit("quiz", new Quiz())
+    ClassroomManager.RegisterContentUnit("interactive_model", new InteractiveModel())
+    ClassroomManager.RegisterContentUnit("bakery", new BakeryGame())
 
-        new DeepLinkingSpawner() // Spawn the user at their class room if they come from a URL with their class room ID
-    
+    new DeepLinkingSpawner() // Spawn the user at their class room if they come from a URL with their class room ID
+
 
     dclu.setup({
         ecs: ecs,
@@ -102,26 +102,26 @@ export function main() {
 
     // Teleporters
     new TeleporterBoard({ // Main Entrance
-        position: Vector3.create(20,0,11.5),
-        rotation: Quaternion.fromEulerDegrees(0,180,0)
+        position: Vector3.create(20, 0, 11.5),
+        rotation: Quaternion.fromEulerDegrees(0, 180, 0)
     })
     new TeleporterBoard({ // Back Entrance
-        position: Vector3.create(26.5,0,12.4),
-        rotation: Quaternion.fromEulerDegrees(0,0,0)
+        position: Vector3.create(26.5, 0, 12.4),
+        rotation: Quaternion.fromEulerDegrees(0, 0, 0)
     })
     new TeleporterBoard({ // Between Theatre 1&2
-        position: Vector3.create(23.5,6.8,30.1),
-        rotation: Quaternion.fromEulerDegrees(0,90,0)
+        position: Vector3.create(23.5, 6.8, 30.1),
+        rotation: Quaternion.fromEulerDegrees(0, 90, 0)
     })
     new TeleporterBoard({ // Class room 1 hall
-        position: Vector3.create(26.6,6.8,11.53),
-        rotation: Quaternion.fromEulerDegrees(0,0,0)
+        position: Vector3.create(26.6, 6.8, 11.53),
+        rotation: Quaternion.fromEulerDegrees(0, 0, 0)
     })
     new TeleporterBoard({ // Class room 2 hall
-        position: Vector3.create(26.6,12.9,11.53),
-        rotation: Quaternion.fromEulerDegrees(0,0,0)
+        position: Vector3.create(26.6, 12.9, 11.53),
+        rotation: Quaternion.fromEulerDegrees(0, 0, 0)
     })
-    
+
 
     //ControllerUI.Show()
 
