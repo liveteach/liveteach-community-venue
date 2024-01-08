@@ -30,18 +30,18 @@ export function main() {
 
     let useDev = false;
     if (useDev) {
-        ClassroomManager.Initialise(communicationChannel, devLiveTeachContractAddress, devTeachersContractAddress, false)
+        ClassroomManager.Initialise(communicationChannel, devLiveTeachContractAddress, devTeachersContractAddress, true)
     }
     else {
         // mainnet
-        ClassroomManager.Initialise(communicationChannel, undefined, undefined, false)
+        ClassroomManager.Initialise(communicationChannel, undefined, undefined, true)
     }
 
     // Add contract guid here for testing
     ClassroomManager.SetTestContractGuid("c73c16d2-e2a7-4acc-bdda-fb2205b5d634")
 
     // Add wallet address here for testing
-    ClassroomManager.AddTestTeacherAddress("0xdcb5d7a318e133d86ccffad34a1b941115e0bbb1")
+    ClassroomManager.AddTestTeacherAddress("0xcf6997763eaaadf9fd7eeffe080cabd6fdd322d5")
 
     //////////// Class 1 - Lecture Theatre 1 (left) ////////////
     ClassroomManager.RegisterClassroom(classroom1Config)
