@@ -30,11 +30,11 @@ export function main() {
 
     let useDev = false;
     if (useDev) {
-        ClassroomManager.Initialise(communicationChannel, devLiveTeachContractAddress, devTeachersContractAddress, true)
+        ClassroomManager.Initialise(communicationChannel, devLiveTeachContractAddress, devTeachersContractAddress, false)
     }
     else {
         // mainnet
-        ClassroomManager.Initialise(communicationChannel, undefined, undefined, true)
+        ClassroomManager.Initialise(communicationChannel, undefined, undefined, false)
     }
 
     // Add contract guid here for testing
