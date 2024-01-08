@@ -1,10 +1,6 @@
 {
     "classroom": {
         "guid": "acbe1e1a-29e6-4dc3-a73d-375f1c756185",
-        "teacherID": "",
-        "teacherName": "",
-        "className": "",
-        "classDescription": "",
         "origin": {
             "x": 36,
             "y": 5,
@@ -15,10 +11,6 @@
             "y": 10,
             "z": 20
         },
-        "autojoin": true,
-        "capacity": "20",
-        "duration": "60",
-        "seatingEnabled": true,
-        "students": []
+        "autojoin": true
     }
 }
