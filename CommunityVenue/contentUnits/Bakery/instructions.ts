@@ -26,7 +26,7 @@ export class Instructions {
 
         this.display = engine.addEntity()
         Transform.create(this.display,_transform)
-        GltfContainer.create(this.display,{src:"models/bakery/instructionsDisplay.glb"})
+        GltfContainer.create(this.display,{src:"contentUnits/Bakery/models/instructionsDisplay.glb"})
 
         this.textEntity = engine.addEntity()
         Transform.create(this.textEntity, {

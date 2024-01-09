@@ -5,7 +5,7 @@ import { CarryItem } from "./carryItem";
 import { Kitchen } from "../kitchen";
 import { ItemManager } from "./itemManager";
 import { ItemType } from "./itemType";
-import { AudioManager } from "../../audio/audioManager";
+import { AudioManager } from "../audioManager";
 
 export class PlaceableArea {
     entity:Entity
@@ -32,7 +32,7 @@ export class PlaceableArea {
             scale: Vector3.Zero()
         })
 
-        GltfContainer.create(this.debugEntity,{src:"models/bakery/areaHelper.glb"})
+        GltfContainer.create(this.debugEntity,{src:"contentUnits/Bakery/models/areaHelper.glb"})
         
      //   MeshRenderer.setBox(this.debugEntity)
         MeshCollider.setBox(this.debugEntity)

@@ -21,13 +21,13 @@ export class Kitchen{
         this.itemManager = new ItemManager(this.counterEntity)
 
         Transform.create(this.counterEntity, _transform)
-        GltfContainer.create(this.counterEntity, {src:"models/bakery/counter.glb"})
+        GltfContainer.create(this.counterEntity, {src:"contentUnits/Bakery/models/counter.glb"})
 
         this.oven = new Oven(this.counterEntity)
 
         // Add the top draws
         this.topDrawPositions.forEach(drawPosition => {
-            let draw = new Draw("models/bakery/topDraw.glb",true)
+            let draw = new Draw("contentUnits/Bakery/models/topDraw.glb",true)
             Transform.create(draw.entity, {
                 parent:this.counterEntity,
                 position: Vector3.create(drawPosition,0.98,0.01)
@@ -38,7 +38,7 @@ export class Kitchen{
         });        
 
         this.bottomDrawPositions.forEach(drawPosition => {
-            let draw = new Draw("models/bakery/bottomDraw.glb",false)
+            let draw = new Draw("contentUnits/Bakery/models/bottomDraw.glb",false)
             Transform.create(draw.entity, {
                 parent:this.counterEntity,
                 position: Vector3.create(drawPosition,0.46,0.03)

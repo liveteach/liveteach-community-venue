@@ -1,10 +1,10 @@
 import { Entity, GltfContainer, InputAction, MeshCollider, MeshRenderer, Transform, engine, pointerEventsSystem } from "@dcl/sdk/ecs";
 import { Quaternion, Vector3 } from "@dcl/sdk/math";
 import * as utils from '@dcl-sdk/utils'
-import { AudioManager } from "../audio/audioManager";
 import { Kitchen } from "./kitchen";
 import { ItemManager } from "./items/itemManager";
 import { ItemType } from "./items/itemType";
+import { AudioManager } from "./audioManager";
 
 export class Oven {
     entity: Entity
@@ -19,14 +19,14 @@ export class Oven {
     constructor(_parent:Entity){
         this.entity = engine.addEntity()
         Transform.create(this.entity,{parent:_parent})
-        GltfContainer.create(this.entity, {src:"models/bakery/oven.glb"})
+        GltfContainer.create(this.entity, {src:"contentUnits/Bakery/models/oven.glb"})
 
         this.ovenDoor = engine.addEntity()
         Transform.create(this.ovenDoor, {
             parent: this.entity,
             position: Vector3.create(-1.64,0.25,0)
         })
-        GltfContainer.create(this.ovenDoor, {src: "models/bakery/ovenDoor.glb"})
+        GltfContainer.create(this.ovenDoor, {src: "contentUnits/Bakery/models/ovenDoor.glb"})
 
         let self = this
         pointerEventsSystem.onPointerDown(
@@ -69,7 +69,7 @@ export class Oven {
                     ItemManager.instance.items.forEach(item => {
                         if(item.itemType == ItemType.bakingTin){
                             item.itemType = ItemType.cake
-                            GltfContainer.createOrReplace(item.entity, {src:"models/bakery/items/cookedSponges.glb"})
+                            GltfContainer.createOrReplace(item.entity, {src:"contentUnits/Bakery/models/items/cookedSponges.glb"})
                             item.hover = "Cake"
                         }
                     });
@@ -112,7 +112,7 @@ export class Oven {
 
         this.heatEffect = engine.addEntity()
         Transform.create(this.heatEffect,{parent:_parent,scale:Vector3.Zero()}) 
-        GltfContainer.create(this.heatEffect, {src:"models/bakery/OvenHeat.glb"})
+        GltfContainer.create(this.heatEffect, {src:"contentUnits/Bakery/models/OvenHeat.glb"})
 
     }
 
