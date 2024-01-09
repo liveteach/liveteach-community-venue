@@ -1,7 +1,7 @@
 import {  Entity, GltfContainer, InputAction, Transform, engine, pointerEventsSystem } from "@dcl/sdk/ecs";
 import * as utils from '@dcl-sdk/utils'
 import { Quaternion, Vector3 } from "@dcl/sdk/math";
-import { AudioManager } from "../audio/audioManager";
+import { AudioManager } from "./audioManager";
 
 export class Draw {
     entity: Entity

@@ -1,15 +1,21 @@
 import { IContentUnit } from "@dclu/dclu-liveteach/src/contentUnits";
 import { Kitchen } from "./kitchen";
 import { Quaternion, Vector3 } from "@dcl/sdk/math";
+import { AudioManager } from "./audioManager";
 
 export class BakeryGame implements IContentUnit{
     kitchen:Kitchen = null
+    audioManager:AudioManager = null
     
     constructor() { 
-        
+
     }
 
     start(_data: any): void {
+        if(this.audioManager==null){
+            this.audioManager = new AudioManager()
+        }
+
         if(this.kitchen!=null){
             this.kitchen.destroy()
         } 
