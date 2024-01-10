@@ -1,0 +1,16 @@
+{
+    "classroom": {
+        "guid": "c73c16d2-e2a7-4acc-bdda-fb2205b5d634",
+        "origin": {
+            "x": 12,
+            "y": 5,
+            "z": 36
+        },
+        "volume": {
+            "x": 20,
+            "y": 10,
+            "z": 20
+        },
+        "autojoin": true
+    }
+}
