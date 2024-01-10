@@ -18,7 +18,7 @@ import { GetCurrentRealmResponse, getCurrentRealm } from "~system/EnvironmentApi
 import { InteractiveModel } from "../contentUnits/InteractiveModel/interactiveModel"
 import { Poll } from "../contentUnits/poll/poll"
 import { Quiz } from "../contentUnits/quiz/quiz"
-import { BakeryGame } from './bakery/bakeryGame'
+import { BakeryGame } from '../contentUnits/Bakery/bakeryGame'
 import { DeepLinkingSpawner } from './teleport/deepLinkingSpawner'
 import { TeleporterBoard } from './teleport/teleporterBoard'
 
