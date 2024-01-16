@@ -59,7 +59,7 @@ export class Poll implements IContentUnit {
         const isStudent = ClassroomManager.classController?.isStudent()
 
         const titleData = this.getTitleData(this.title)
-        const height: number = (isStudent ? 150 : 100) + (this.options.length * 55) + (titleData[1] * 20)
+        const height: number = (isStudent ? 180 : 110) + (this.options.length * 55) + (titleData[1] * 20)
         const startY: number = (height / 2) - 50 - (titleData[1] * 10)
         this.pollPrompt = ui.createComponent(ui.CustomPrompt, {
             style: ui.PromptStyles.DARK,
