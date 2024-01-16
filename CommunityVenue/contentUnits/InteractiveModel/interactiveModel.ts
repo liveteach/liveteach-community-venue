@@ -1,9 +1,10 @@
-import { Billboard, BillboardMode, Entity, GltfContainer, InputAction, MeshCollider, MeshRenderer, TextShape, Transform, engine, pointerEventsSystem } from "@dcl/sdk/ecs";
+import { Billboard, BillboardMode, Entity, GltfContainer, InputAction, MeshCollider, TextShape, Transform, engine, pointerEventsSystem } from "@dcl/sdk/ecs";
 import { Quaternion, Vector3 } from "@dcl/sdk/math";
 import { ClassroomManager } from "@dclu/dclu-liveteach/src/classroom";
 import { IContentUnit } from "@dclu/dclu-liveteach/src/contentUnits";
 
 export class InteractiveModel implements IContentUnit {
+    readonly offset: Vector3 = Vector3.create(-1.5, -2.9, 3)
     parent: Entity = engine.addEntity()
     parts: Entity[] = []
     triggers: Entity[] = []
@@ -20,7 +21,7 @@ export class InteractiveModel implements IContentUnit {
         })
         Transform.createOrReplace(this.parent, {
             parent: ClassroomManager.originEntity,
-            position: Vector3.create(_data.parent.position.x, _data.parent.position.y, _data.parent.position.z),
+            position: Vector3.add(Vector3.create(_data.parent.position.x, _data.parent.position.y, _data.parent.position.z), this.offset),
             rotation: Quaternion.fromEulerDegrees(_data.parent.rotation.x, _data.parent.rotation.y, _data.parent.rotation.z),
             scale: Vector3.create(_data.parent.scale.x, _data.parent.scale.y, _data.parent.scale.z)
         })
